@@ -1,0 +1,12 @@
+{
+    "name": "nt/rentapp",
+    "description": "najot talim rent app",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "NT\\RentApp\\": "src/"
+        }
+    },
+    "require": {}
+}
+ 
