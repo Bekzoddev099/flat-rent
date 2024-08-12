@@ -4,9 +4,11 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "NT\\RentApp\\": "src/"
+            "RentApp\\": "src/"
         }
     },
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+    
 }
- 
