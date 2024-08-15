@@ -1,16 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
-namespace RentApp;
+namespace App;
 
 use PDO;
 
 class DB
 {
-    public static function connect(): PDO
+    public static function connect():PDO
     {
-        $dsn = "{$_ENV['DB_CONNECTION']}:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']};user={$_ENV['DB_USERNAME']};password={$_ENV['DB_PASSWORD']}";
-        return new PDO($dsn);
+        $dsn = "{$_ENV['DB_CONNECTION']}:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_DATABASE']}";
+        return new PDO($dsn, $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD']);
     }
 }
