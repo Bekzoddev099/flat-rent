@@ -9,7 +9,7 @@ class AdController
     public function show(int $id): void
     {
         /**
-         *  int @var $id
+         * @var $id
          */
         $ad        = (new \App\Ads())->getAd($id);
         $ad->image = "../assets/images/ads/$ad->image";
@@ -62,5 +62,9 @@ class AdController
         }
 
         echo "Iltimos, barcha maydonlarni to'ldiring!";
+    }
+
+    public function update(int $id): void{
+        loadView('dashboard/create-ad', ['ad' => (new \App\Ads())->getAd($id)]);
     }
 }

@@ -66,30 +66,8 @@ function loadController(string $path, array|null $args = null): void
     require basePath('/controllers/'.$path.'.php');
 }
 
-function assets(string $path): string
-{
-    $filePath = basePath("/resources/assets/$path");
-
-    if (!file_exists($filePath)) {
-        echo "Required assets/file not found: $filePath";
-        return '';
-    }
-
-    return $filePath;
-}
-
-function getUserNameFromSession()
-{
-    if (isset($_SESSION['user']['username'])) {
-        return $_SESSION['user']['username'];
-    }
-
-    return '';
-}
-
 function redirect(string $url): void
 {
-//    dd($url);
     header("Location: $url");
     exit();
 }
