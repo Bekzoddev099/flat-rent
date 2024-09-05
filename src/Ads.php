@@ -82,8 +82,8 @@ class Ads
         int    $user_id,
         int    $status_id,
         int    $branch_id,
-        string $address,
         float  $price,
+        string  $address,
         int    $rooms
     ) {
         $query = "UPDATE ads SET title = :title, description = :description, user_id = :user_id,
@@ -105,13 +105,13 @@ class Ads
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function deleteAds(int $id): array|false
+    public function deleteAd(int $id): bool
     {
         $query = "DELETE FROM ads WHERE id = :id";
         $stmt  = $this->pdo->prepare($query);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+        return $stmt->execute();
     }
+
 
 }

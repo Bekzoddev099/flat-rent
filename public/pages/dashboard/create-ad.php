@@ -4,18 +4,18 @@ declare(strict_types=1);
 loadPartials('header');
 loadPartials('navbar');
 /**
- *  int @var $ad
+ * @var $ad
+ * @var $branches
+ * @var $statuses
  */
 
 
 $uri = explode('/', $_SERVER['REQUEST_URI']);
 if (in_array('create', $uri)) {
     $action = '/ads/create';
-    $method = 'POST';
     $ad     = null;
 } else {
     $action = "/ads/update/$ad->id";
-    $method = 'PATCH';
 }
 ?>
     <div class="page-wrapper toggled">
@@ -267,7 +267,8 @@ if (in_array('create', $uri)) {
                             </div>
 
                             <div class="rounded-md shadow dark:shadow-gray-700 p-6 bg-white dark:bg-slate-900 h-fit">
-                                <form id="ads-create" action="<?=$action?>" method="<?=$method?>" enctype="multipart/form-data">
+                                <form id="ads-create" action="<?=$action?>" method="post" enctype="multipart/form-data">
+                                    <input name="_method" value="patch" hidden>
                                     <div class="grid grid-cols-12 gap-5">
                                         <div class="col-span-12">
                                             <label for="title" class="font-medium">Sarlavha</label>
@@ -279,10 +280,7 @@ if (in_array('create', $uri)) {
                                             <label for="description" class="font-medium">Ta'rif</label>
                                             <div class="form-icon relative mt-2">
                                                 <i class="mdi mdi-arrow-expand-all absolute top-2 start-4 text-green-600"></i>
-                                                <textarea name="description" id="description" class="form-input ps-11"
-                                                          placeholder="E'lon bo'yicha ta'rif...">
-                                                    <?= $ad?->description ?>
-                                                </textarea>
+                                                <textarea name="description" id="description" class="form-input ps-11" placeholder="E'lon bo'yicha ta'rif..."><?= $ad?->description ?></textarea>
                                             </div>
                                         </div>
 
@@ -297,9 +295,25 @@ if (in_array('create', $uri)) {
                                             </div>
                                         </div>
 
-                                        <div class="md:col-span-4 col-span-12 hidden">
-                                            <div class="form-icon relative mt-2">
-                                                <input name="branch" value="1" type="number" class="form-input ps-11">
+                                        <div class="md:col-span-4 col-span-12" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                            <div>
+                                                <label for="branches" style="font-weight: 500;">Fillal</label>
+                                                <select name="branch_id" id="branches" style="color: black; width: 100%;">
+                                                    <?php foreach ($branches as $branch) {
+                                                        $selected = ($branch->id == $ad->branch_id ? "selected" : "");
+                                                        echo "<option value='$branch->id' $selected>$branch->name</option>";
+                                                    } ?>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label for="statuses" style="font-weight: 500;">Holati</label>
+                                                <select name="status_id" id="statuses" style="color: black; width: 100%;">
+                                                    <?php foreach ($statuses as $status) {
+                                                        $selected = ($status['id'] == $ad->status_id) ? 'selected' : '';
+                                                        echo "<option value=\"{$status['id']}\" $selected>{$status['name']}</option>";
+                                                    }?>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -354,6 +368,35 @@ if (in_array('create', $uri)) {
         </main>
         <!--End page-content" -->
     </div>
+    <!-- JAVASCRIPTS -->
+    <script src="assets/libs/feather-icons/feather.min.js"></script>
+    <script src="assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="assets/js/plugins.init.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <script>
+        const handleChange = () => {
+            const fileUploader = document.querySelector('#input-file');
+            const getFile = fileUploader.files
+            if (getFile.length !== 0) {
+                const uploadedFile = getFile[0];
+                readFile(uploadedFile);
+            }
+        }
+
+        const readFile = (uploadedFile) => {
+            if (uploadedFile) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const parent = document.querySelector('.preview-box');
+                    parent.innerHTML = `<img class="preview-content" src=${reader.result} />`;
+                };
+
+                reader.readAsDataURL(uploadedFile);
+            }
+        };
+    </script>
+    <!-- JAVASCRIPTS -->
 
 <?php
 loadPartials(path: 'footer', loadFromPublic: false);

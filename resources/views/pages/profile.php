@@ -163,6 +163,8 @@ loadPartials(path: 'header', loadFromPublic: false);
                                             src="dashboard/assets/images/client/07.jpg" class="rounded-md"
                                             alt=""></span>
                             </button>
+                            <a href="/logout" class="btn bg-green-600 hover:bg-green-700 border-green-600 dark:border-green-600 text-white rounded-full">Chiqish</a>
+
                             <!-- Dropdown menu -->
                             <div class="dropdown-menu absolute end-0 m-0 mt-4 z-10 w-44 rounded-md overflow-hidden bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 hidden"
                                  onclick="event.stopPropagation();">
@@ -326,10 +328,14 @@ loadPartials(path: 'header', loadFromPublic: false);
                                                     <div class="absolute top-4 end-4">
                                                         <a href="/ads/update/<?= $ad->id ?>"
                                                            class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600"><i
-                                                                    class="mdi mdi-heart text-[20px]"></i></a>
+                                                                    class="mdi mdi-pencil text-[20px]"></i>
+                                                        </a>
+                                                        <a href="/ads/delete/<?= $ad->id ?>"
+                                                             class="btn btn-icon bg-red-600 dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600"><i
+                                                                 class="mdi mdi-delete text-[20px]"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
-
                                                 <div class="p-6">
                                                     <div class="pb-6">
                                                         <a href="/ads/<?= $ad->id ?>"
