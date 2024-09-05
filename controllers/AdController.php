@@ -18,6 +18,11 @@ class AdController
         loadView('single-ad', ['ad' => $ad]);
     }
 
+    public function index(): void
+    {
+        $this->ads->getAds();
+    }
+
     public function create(): void
     {
         $branches = (new Branch())->getBranches();
