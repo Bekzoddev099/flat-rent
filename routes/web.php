@@ -21,10 +21,6 @@ Router::delete('/ads/delete/{id}', fn(int $id) => (new AdController())->delete($
 Router::get('/status/create', fn() => loadView('dashboard/create-status'));
 Router::post('/status/create', fn() => loadController('createStatus'));
 
-Router::get('/branch', fn() => (new \Controller\BranchController())->getBranches());
-Router::get('/branches/create', fn() => loadView('dashboard/create-branches'));
-Router::post('/branches/create', fn() => (new \Controller\BranchController())->create());
-
 Router::get('/login', fn() => loadView('auth/login'), 'guest');
 Router::post('/login', fn() => (new \Controller\AuthController())->login());
 
