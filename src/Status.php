@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use PDO;
-
 class Status
 {
 
@@ -34,18 +32,10 @@ class Status
 
     public function getStatus(int $id)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM status WHERE id = :id");
+        $stmt = $this->pdo->prepare("SELECT * FROM `status` WHERE id = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         return $stmt->fetch();
-    }
-
-    public function getStatuses()
-    {
-        $stmt = $this->pdo->prepare("SELECT * FROM status");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     }
 
     public function deleteStatus(int $id): bool

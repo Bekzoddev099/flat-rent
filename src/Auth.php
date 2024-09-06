@@ -20,28 +20,30 @@ class Auth
         // Get user or fail
         $user = (new User())->getByUsername($username, $password);
 
-        if (!$user) {
-            $_SESSION['message']['error'] = "Wrong email or password";
-            redirect('/login');
-            return;
-        }
-
         // Get users role
         $query = "SELECT users.*, user_roles.role_id
                   FROM users
-                  JOIN user_roles ON users.id = user_roles.user_id
-                  WHERE users.id = :user_id";
+                      JOIN user_roles ON users.id = user_roles.user_id
+                  WHERE id = $user->id";
 
-        // Tayyorlangan so'rovdan foydalanish
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute(['user_id' => $user->id]);
-        $userWithRoles = $stmt->fetch();
 
-        // Rollarni tekshirish
-        if ($userWithRoles && $userWithRoles->role_id === Role::ADMIN) {
+        // |public
+        // |- dashboard/profile
+        // |--- assets
+        // |--- pages
+        // |--- partials
+        // |- public
+        // |--- assets
+        // |--- pages
+        // |--- partials
+
+
+        // Execute query
+        $userWithRoles = $this->pdo->query($query)->fetch();
+        if ($userWithRoles->role_id === Role::ADMIN) {
             redirect('/admin');
-            return;
         }
+
 
         if ($userWithRoles) {
             $_SESSION['user'] = [
@@ -51,8 +53,7 @@ class Auth
             ];
 
             unset($_SESSION['message']['error']);
-            redirect('/profile');
-            return;
+            redirect('/profile2');
         }
 
         $_SESSION['message']['error'] = "Wrong email or password";

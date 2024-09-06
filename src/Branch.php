@@ -40,10 +40,9 @@ class Branch
         return $stmt->fetch();
     }
 
-    public function getBranches()
+    public function getBranches(): false|array
     {
         return $this->pdo->query("SELECT * FROM branch")->fetchAll();
-
     }
 
     public function deleteBranch(int $id): bool
