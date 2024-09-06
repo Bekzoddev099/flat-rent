@@ -3,7 +3,7 @@
 declare(strict_types=1);
 loadPartials(path: 'header', loadFromPublic: false);
 ?>
-    <body class="font-body text-base text-black dark:text-white dark:bg-slate-900">
+<body class="font-body text-base text-black dark:text-white dark:bg-slate-900">
 
 
 <div class="page-wrapper toggled">
@@ -89,29 +89,29 @@ loadPartials(path: 'header', loadFromPublic: false);
                                 <li class="my-1">
                                     <a href=""
                                        class="flex items-center text-[15px] font-medium py-1.5 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><img
-                                                src="/dashboard/assets/images/flags/germany.png"
-                                                class="size-6 rounded-md me-2 shadow dark:shadow-gray-700" alt="">
+                                            src="/dashboard/assets/images/flags/germany.png"
+                                            class="size-6 rounded-md me-2 shadow dark:shadow-gray-700" alt="">
                                         German</a>
                                 </li>
                                 <li class="my-1">
                                     <a href=""
                                        class="flex items-center text-[15px] font-medium py-1.5 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><img
-                                                src="/dashboard/assets/images/flags/italy.png"
-                                                class="size-6 rounded-md me-2 shadow dark:shadow-gray-700" alt="">
+                                            src="/dashboard/assets/images/flags/italy.png"
+                                            class="size-6 rounded-md me-2 shadow dark:shadow-gray-700" alt="">
                                         Italian</a>
                                 </li>
                                 <li class="my-1">
                                     <a href=""
                                        class="flex items-center text-[15px] font-medium py-1.5 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><img
-                                                src="/dashboard/assets/images/flags/russia.png"
-                                                class="size-6 rounded-md me-2 shadow dark:shadow-gray-700" alt="">
+                                            src="/dashboard/assets/images/flags/russia.png"
+                                            class="size-6 rounded-md me-2 shadow dark:shadow-gray-700" alt="">
                                         Russian</a>
                                 </li>
                                 <li class="my-1">
                                     <a href=""
                                        class="flex items-center text-[15px] font-medium py-1.5 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><img
-                                                src="/dashboard/assets/images/flags/spain.png"
-                                                class="size-6 rounded-md me-2 shadow dark:shadow-gray-700" alt="">
+                                            src="/dashboard/assets/images/flags/spain.png"
+                                            class="size-6 rounded-md me-2 shadow dark:shadow-gray-700" alt="">
                                         Spanish</a>
                                 </li>
                             </ul>
@@ -208,7 +208,7 @@ loadPartials(path: 'header', loadFromPublic: false);
                     <li class="dropdown inline-block relative">
                         <button data-dropdown-toggle="dropdown" class="dropdown-toggle items-center" type="button">
                             <span class="size-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-[20px] text-center bg-gray-50 dark:bg-slate-800 hover:bg-gray-100 dark:hover:bg-slate-700 border border-gray-100 dark:border-gray-800 text-slate-900 dark:text-white rounded-md"><img
-                                        src="/dashboard/assets/images/client/07.jpg" class="rounded-md" alt=""></span>
+                                    src="/dashboard/assets/images/client/07.jpg" class="rounded-md" alt=""></span>
                         </button>
                         <!-- Dropdown menu -->
                         <div class="dropdown-menu absolute end-0 m-0 mt-4 z-10 w-44 rounded-md overflow-hidden bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 hidden"
@@ -217,28 +217,28 @@ loadPartials(path: 'header', loadFromPublic: false);
                                 <li>
                                     <a href="profile.html"
                                        class="block py-1 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><i
-                                                class="mdi mdi-account-outline me-2"></i>Profile</a>
+                                            class="mdi mdi-account-outline me-2"></i>Profile</a>
                                 </li>
                                 <li>
                                     <a href="chat.html"
                                        class="block py-1 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><i
-                                                class="mdi mdi-chat-outline me-2"></i>Chat</a>
+                                            class="mdi mdi-chat-outline me-2"></i>Chat</a>
                                 </li>
                                 <li>
                                     <a href="profile-setting.html"
                                        class="block py-1 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><i
-                                                class="mdi mdi-cog-outline me-2"></i>Settings</a>
+                                            class="mdi mdi-cog-outline me-2"></i>Settings</a>
                                 </li>
                                 <li class="border-t border-gray-100 dark:border-gray-800 my-2"></li>
                                 <li>
                                     <a href="lock-screen.html"
                                        class="block py-1 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><i
-                                                class="mdi mdi-lock-outline me-2"></i>Lockscreen</a>
+                                            class="mdi mdi-lock-outline me-2"></i>Lockscreen</a>
                                 </li>
                                 <li>
                                     <a href="login.html"
                                        class="block py-1 px-4 dark:text-white/70 hover:text-green-600 dark:hover:text-white"><i
-                                                class="mdi mdi-logout me-2"></i>Logout</a>
+                                            class="mdi mdi-logout me-2"></i>Logout</a>
                                 </li>
                             </ul>
                         </div>
@@ -280,7 +280,7 @@ loadPartials(path: 'header', loadFromPublic: false);
                                 <div class="absolute top-4 end-4">
                                     <a href="javascript:void(0)"
                                        class="btn btn-icon bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-full text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600"><i
-                                                class="mdi mdi-heart text-[20px]"></i></a>
+                                            class="mdi mdi-heart text-[20px]"></i></a>
                                 </div>
                             </div>
 
@@ -316,7 +316,7 @@ loadPartials(path: 'header', loadFromPublic: false);
                         <p class="mb-0 text-slate-400">©
                             <script>document.write(new Date().getFullYear())</script>
                             NTRA. Design with <i class="mdi mdi-heart text-red-600"></i> by <a
-                                    href="https://najottalim.uz" target="_blank" class="text-reset">PHP Bootcamp N1</a>.
+                                href="https://najottalim.uz" target="_blank" class="text-reset">PHP Bootcamp N1</a>.
                         </p>
                     </div><!--end col-->
                 </div><!--end grid-->

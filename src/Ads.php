@@ -63,7 +63,6 @@ class Ads
                     JOIN branch ON branch.id = ads.branch_id
                     LEFT JOIN ads_image ON ads.id = ads_image.ads_id";
          return $this->pdo->query($query)->fetchAll();
-
     }
 
     public function getUsersAds(int $userId): false|array
@@ -83,8 +82,8 @@ class Ads
         int    $user_id,
         int    $status_id,
         int    $branch_id,
-        string $address,
         float  $price,
+        string  $address,
         int    $rooms
     ) {
         $query = "UPDATE ads SET title = :title, description = :description, user_id = :user_id,
@@ -106,22 +105,13 @@ class Ads
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function deleteAds(int $id): array|false
+    public function deleteAd(int $id): bool
     {
-        /**
-         * Delete image
-         * 1. get image name: default.jpg
-         * 2. check if file exist
-         * 3. delete if exists
-         * 4.
-         */
-        $image = $this->pdo->query("SELECT name FROM ads_image WHERE ads_id = $id")->fetch()->name;
-        unlink("assets/images/ads/$image");
         $query = "DELETE FROM ads WHERE id = :id";
         $stmt  = $this->pdo->prepare($query);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+        return $stmt->execute();
     }
+
 
 }

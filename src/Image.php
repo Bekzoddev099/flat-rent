@@ -10,9 +10,6 @@ class Image
 {
     private PDO $pdo;
 
-    const string DEFAULT_IMAGE = 'default.jpg';
-    const string DEFAULT_PATH  = '/assets/images/';
-
     public function __construct()
     {
         $this->pdo = DB::connect();
@@ -61,10 +58,28 @@ class Image
         return $fileName;
     }
 
-    public static function show(string|null $file = null): string
+    public function getImageByAdId(int $adsId)
     {
-        return $file
-            ? self::DEFAULT_PATH.$file
-            : self::DEFAULT_PATH.self::DEFAULT_IMAGE;
+        $stmt = $this->pdo->prepare("SELECT * FROM ads_image WHERE ads_id = :ads_id");
+        $stmt->bindParam(':ads_id', $adsId);
+        $stmt->execute();
+
+        return $stmt->fetch();
     }
+
+    public function updateImage(int $id,string $name ): bool
+    {
+        $stmt = $this->pdo->prepare("UPDATE ads_image SET name = :name WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':name', $name);
+        return $stmt->execute();
+    }
+
+    public function deleteImage(int $id): bool
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM ads_image WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
+
 }
