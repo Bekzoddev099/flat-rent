@@ -37,4 +37,6 @@ Router::get('/admin/branches', fn() => (new Controller\BranchController())->inde
 Router::get('/register', fn()=> loadView('auth/createUser'));
 Router::post('/register', fn()=> (new \Controller\AuthController())->register());
 
+Router::get('/search', fn() => (new \Controller\AdController())->search());
+
 Router::errorResponse(404, 'Not Found');

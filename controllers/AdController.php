@@ -10,6 +10,7 @@ use App\Status;
 use App\Ads;
 use App\Image;
 
+
 class AdController
 {
     public Ads $ads;
@@ -113,6 +114,14 @@ class AdController
         redirect('/profile');
     }
 
+    public function search(): void
+    {
+        $searchPhrase = $_GET['search_phrase'];
+
+        $ads = (new \App\Ads())->search($searchPhrase);
+        loadView('home', ['ads' => $ads]);
+    }
+
     public function delete(int $id): void
     {
         $imageHandler = new Image();
@@ -131,4 +140,6 @@ class AdController
         $this->ads->deleteAd($id);
         redirect('/profile');
     }
+
+
 }
