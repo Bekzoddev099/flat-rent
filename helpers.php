@@ -19,13 +19,12 @@ function getAds(): false|array
 
 function basePath(string $path): string
 {
-    return __DIR__.$path;
+    return __DIR__ . $path;
 }
 
 function loadView(string $path, array|null $args = null): void
 {
     $file = "/resources/views/pages/$path.php";
-
 
     $filePath = basePath($file);
 
@@ -60,7 +59,7 @@ function loadController(string $path, array|null $args = null): void
     if (is_array($args)) {
         extract($args);
     }
-    require basePath('/controllers/'.$path.'.php');
+    require basePath('/controllers/' . $path . '.php');
 }
 
 function redirect(string $url): void

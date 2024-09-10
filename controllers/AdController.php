@@ -4,30 +4,26 @@ declare(strict_types=1);
 
 namespace Controller;
 
-use App\Branch;
-use App\Session;
-use App\Status;
 use App\Ads;
-use App\Image;
-
+use App\Branch;
+use App\Status;
 
 class AdController
 {
-    public Ads $ads;
 
+    public Ads $ads;
 
     public function __construct()
     {
         $this->ads = new Ads();
     }
 
-    public function home()
+    public function home(): void
     {
         $ads = $this->ads->getAds();
-
         $branches = (new Branch())->getBranches();
 
-        loadView('ads/home', ['ads' => $ads, 'branches' => $branches]);
+        loadView('home', ['ads' => $ads, 'branches' => $branches]);
     }
 
     public function show(int $id): void
@@ -36,12 +32,6 @@ class AdController
         $ad->image = "../assets/images/ads/$ad->image";
 
         loadView('single-ad', ['ad' => $ad]);
-    }
-
-    public function index(): void
-    {
-        $ads = $this->ads->getAds();
-        loadView('dashboard/ads', ['ads' => $ads]);
     }
 
     public function create(): void
@@ -63,7 +53,7 @@ class AdController
             $newAdsId = $this->ads->createAds(
                 title: $title,
                 description: $description,
-                user_id: (new Session())->getId(),
+                user_id: (new \App\Session)->getId(),
                 status_id: (int)$_POST['status_id'],
                 branch_id: (int)$_POST['branch_id'],
                 address: $address,
@@ -72,7 +62,7 @@ class AdController
             );
 
             if ($newAdsId) {
-                $imageHandler = new Image();
+                $imageHandler = new \App\Image();
                 $fileName = $imageHandler->handleUpload();
 
                 if (!$fileName) {
@@ -81,7 +71,7 @@ class AdController
 
                 $imageHandler->addImage((int)$newAdsId, $fileName);
 
-                header('Location: /');
+                redirect('/profile');
                 exit();
             }
 
@@ -95,60 +85,48 @@ class AdController
     {
         $branches = (new Branch())->getBranches();
         $statuses = (new Status())->getStatuses();
-        loadView('dashboard/create-ad', ['ad' => $this->ads->getAd($id), 'branches' => $branches, 'statuses' => $statuses]);
+        loadView('dashboard/create-ad', ['ad' => (new \App\Ads())->getAd($id), 'branches' => $branches, 'statuses' => $statuses]);
     }
 
     public function edit(int $id): void
     {
         if ($_FILES['image']['error'] != 4) {
             $uploadPath = basePath("/public_html/assets/images/ads/");
-            $image = new Image();
+            $image = new \App\Image();
             $image_name = $image->getImageByAdId($id);
             unlink(basePath($uploadPath . "/" . $image_name->name));
             $newFileName = $image->handleUpload();
             $image->updateImage($image_name->id, $newFileName);
         }
-
         $this->ads->updateAds(
             id: $id,
             title: $_POST['title'],
             description: $_POST['description'],
-            user_id: (new Session())->getId(),
+            user_id: (int)(new \App\Session)->getId(),
             status_id: (int)$_POST['status_id'],
-            branch_id: (int)$_POST['branch_id'],
-            price: (float)$_POST['price'],
+            branch_id: (int)($_POST['branch_id']),
             address: $_POST['address'],
+            price: (float)$_POST['price'],
             rooms: (int)$_POST['rooms']
         );
         redirect('/profile');
     }
 
-    public function search(): void
-    {
-        $searchPhrase = $_GET['search_phrase'];
-
-        $ads = (new \App\Ads())->search($searchPhrase);
-        loadView('home', ['ads' => $ads]);
-    }
-
     public function delete(int $id): void
     {
-        $imageHandler = new Image();
-        $image = $imageHandler->getImageByAdId($id);
-
-        if ($image) {
-            $uploadPath = basePath("/public/assets/images/ads/");
-            $filePath = $uploadPath . $image->name;
-
-            if ($image->name !== 'default.jpg' && file_exists($filePath)) {
-                unlink($filePath);
-                $imageHandler->deleteImage($image->id);
-            }
-        }
-
-        $this->ads->deleteAd($id);
+        $this->ads->deleteAds($id);
         redirect('/profile');
     }
 
+    public function search(): void
+    {
+        $searchPhrase = $_REQUEST['search_phrase'];
+        $searchBranch = $_GET['search_branch'] ? (int) $_GET['search_branch'] : null;
+        $searchMinPrice = $_GET['min_price'] ? (int) $_GET['min_price'] : 0;
+        $searchMaxPrice = $_GET['max_price'] ? (int) $_GET['max_price'] : PHP_INT_MAX;
 
+        $ads = (new \App\Ads())->superSearch($searchPhrase, $searchBranch, $searchMinPrice, $searchMaxPrice);
+        $branches = (new \App\Branch())->getBranches();
+        loadView('home', ['ads' => $ads, 'branches' => $branches]);
+    }
 }

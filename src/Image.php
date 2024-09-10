@@ -8,6 +8,8 @@ use PDO;
 
 class Image
 {
+    const string DEFAULT_IMAGE = 'default.jpg';
+    const string DEFAULT_PATH  = '/assets/images/ads/';
     private PDO $pdo;
 
     public function __construct()
@@ -75,11 +77,10 @@ class Image
         return $stmt->execute();
     }
 
-    public function deleteImage(int $id): bool
+    public static function show(string|null $file = null): string
     {
-        $stmt = $this->pdo->prepare("DELETE FROM ads_image WHERE id = :id");
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
+        return $file
+            ? self::DEFAULT_PATH.$file
+            : self::DEFAULT_PATH.self::DEFAULT_IMAGE;
     }
-
 }

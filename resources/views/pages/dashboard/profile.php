@@ -1,13 +1,18 @@
 <?php
 
-loadPartials(path: 'header', loadFromPublic: false);
+
+loadPartials(path: "header", loadFromPublic: false);;
+/**
+ * @var  $ads
+ */
+
 ?>
 
     <div class="page-wrapper toggled">
         <?php loadPartials(path: "sidebar", loadFromPublic: false); ?>
 
         <main class="page-content bg-gray-50 dark:bg-slate-800">
-            <?php loadPartials(path:'top-header', loadFromPublic: false);?>
+            <?php loadPartials(path: "top-header", loadFromPublic: false); ?>
 
             <div class="container-fluid relative px-3">
                 <div class="layout-specing">
@@ -197,28 +202,12 @@ loadPartials(path: 'header', loadFromPublic: false);
                     </div>
                     <!-- End Content -->
                 </div>
-            </div><!--end container-->
-
-            <!-- Footer Start -->
-            <footer class="shadow dark:shadow-gray-700 bg-white dark:bg-slate-900 px-6 py-4">
-                <div class="container-fluid">
-                    <div class="grid grid-cols-1">
-                        <div class="sm:text-start text-center mx-md-2">
-                            <p class="mb-0 text-slate-400">©
-                                <script>document.write(new Date().getFullYear())</script>
-                                Hously. Najot ta'lim <i class="mdi mdi-heart text-red-600"></i> by <a
-                                        href="https://shreethemes.in/" target="_blank"
-                                        class="text-reset">PHP Bootcamp N1 </a>.
-                            </p>
-                        </div><!--end col-->
-                    </div><!--end grid-->
-                </div><!--end container-->
-            </footer><!--end footer-->
-            <!-- End -->
+            </div>
+            ><!--end container-->
         </main>
-        <!--End page-content" -->
     </div>
-
 <?php
-loadPartials(path: 'footer', loadFromPublic: false);
+
+loadPartials(path: "footer", loadFromPublic: false);
+
 ?>

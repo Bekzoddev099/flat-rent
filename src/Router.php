@@ -17,18 +17,18 @@ class Router
 
     public function getResourceName(): string
     {
-        $uri  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $path = explode('/', $uri);
         return $path[count($path) - 2];
     }
 
     public function getResourceId(): false|int
     {
-        $uri        = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $path       = explode('/', $uri);
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $path = explode('/', $uri);
         $resourceId = $path[count($path) - 1];
 
-        return is_numeric($resourceId) ? (int) $resourceId : false;
+        return is_numeric($resourceId) ? (int)$resourceId : false;
     }
 
     public function sendResponse($data): void
@@ -47,7 +47,7 @@ class Router
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if ((new self())->getResourceId()) {
-                $path = str_replace('{id}', (string) (new self())->getResourceId(), $path);
+                $path = str_replace('{id}', (string)(new self())->getResourceId(), $path);
                 if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
                     $callback((new self())->getResourceId());
                     exit();
@@ -72,20 +72,18 @@ class Router
     public static function patch($path, $callback, string|null $middleware = null): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if(isset($_POST['_method'])) {
-                if (strtolower($_POST['_method']) === 'patch') {
-                    if ((new self())->getResourceId()) {
-                        $path = str_replace('{id}', (string)(new self())->getResourceId(), $path);
-                        if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
-                            $callback((new self())->getResourceId());
-                            exit();
-                        }
-                    }
+            if ($_POST['_method'] === 'patch') {
+                if ((new self())->getResourceId()) {
+                    $path = str_replace('{id}', (string)(new self())->getResourceId(), $path);
                     if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
-                        (new Authentication())->handle($middleware);
-                        $callback();
+                        $callback((new self())->getResourceId());
                         exit();
                     }
+                }
+                if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                    (new Authentication())->handle($middleware);
+                    $callback();
+                    exit();
                 }
             }
         }
@@ -93,9 +91,21 @@ class Router
 
     public static function delete($path, $callback, string|null $middleware = null): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && $_SERVER['REQUEST_URI'] === $path) {
-            $callback();
-            exit();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ($_POST['_method'] === 'delete') {
+                if ((new self())->getResourceId()) {
+                    $path = str_replace('{id}', (string)(new self())->getResourceId(), $path);
+                    if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                        $callback((new self())->getResourceId());
+                        exit();
+                    }
+                }
+                if ($path === parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+                    (new Authentication())->handle($middleware);
+                    $callback();
+                    exit();
+                }
+            }
         }
     }
 
