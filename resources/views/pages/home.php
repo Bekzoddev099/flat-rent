@@ -2,9 +2,12 @@
 
 loadPartials('header');
 loadPartials('navbar');
+/**
+*
+* @var $branchres
+*/
 ?>
     <!-- Start -->
-
     <section class="relative md:pb-24 pb-16">
     <div class="container relative">
         <div class="grid grid-cols-1 justify-center">
@@ -53,15 +56,14 @@ loadPartials('navbar');
                                             <label for="buy-min-price" class="form-label font-medium text-slate-900 dark:text-white">Min Price :</label>
                                             <div class="filter-search-form relative filter-border mt-2">
                                                 <i class="uil uil-usd-circle icons"></i>
-                                                <select class="form-select" data-trigger name="choices-min-price" id="choices-min-price-buy" aria-label="Default select example">
-                                                    <option>Min Price</option>
-                                                    <option>500</option>
-                                                    <option>1000</option>
-                                                    <option>2000</option>
-                                                    <option>3000</option>
-                                                    <option>4000</option>
-                                                    <option>5000</option>
-                                                    <option>6000</option>
+                                                <select class="form-select" data-trigger name="branches" id="choices-min-price-buy" aria-label="Default select example">
+                                                    <option value="">Filiallar</option>
+                                                    <?php
+                                                    foreach ($branches as $branch) {
+                                                        echo "<option value='$branch->id'>$branch->name</option>";
+                                                    }
+                                                    ?>
+
                                                 </select>
                                             </div>
                                         </div>
@@ -291,3 +293,4 @@ loadPartials('navbar');
     <!-- End -->
 <?php
 loadPartials('footer');
+?>

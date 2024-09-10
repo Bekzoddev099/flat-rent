@@ -5,7 +5,7 @@ declare(strict_types=1);
 use App\Router;
 use Controller\AdController;
 
-Router::get('/', fn() => loadController('home'));
+Router::get('/', fn() =>(new AdController())->home()) ;
 
 Router::get('/ads/{id}', fn(int $id) => (new AdController())->show($id));
 Router::get('/ads/create', fn() => (new AdController())->create());
